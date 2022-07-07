@@ -3,10 +3,11 @@ import { Flex, Box, Heading, Input, InputGroup, InputRightElement, Button, Divid
 import { LockIcon } from '@chakra-ui/icons'
 import * as yup from 'yup'
 import { Formik } from 'formik'
-// import { history } from '../../utils/historyUtil'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { history } from '../../utils/historyUtil'
+import { useDispatch, useSelector } from 'react-redux'
 import { signin } from '../../app/actions/authAction'
+import { setNotification } from '../../app/actions/notificationAction'
+import Notification from '../../components/Notification'
 
 const formSchema = yup.object().shape({
   email: yup.string()
@@ -24,21 +25,25 @@ const initialValues = {
 }
 
 const SignIn = () => {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
-  // const { message } = useSelector((user) => user.auth)
+  const { message } = useSelector((user) => user.auth)
   const [ show, setShow ] = useState(false)
   const handleShow = () => setShow(!show)
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     const { email, password } = values
-    dispatch(signin({ email: email, password: password }))
-    console.log(values)
+    try {
+      await dispatch(signin({ email: email, password: password }))
+      await dispatch(setNotification(message, 5000))
+    } catch(err) {
+      await dispatch(setNotification(message, 5000))
+    }
   }
   return (
     <Formik initialValues={initialValues} validationSchema={formSchema} onSubmit={onSubmit}>
       {({ handleSubmit, errors, touched, handleChange, values }) => (
         <Flex height="100vh" alignItems="center" justifyContent="center">
           <Box width="350px" pt="10" boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" borderRadius={5}>
+            <Notification />
             <Heading as="h2" textAlign="center" color="purple.300"><LockIcon />{' '}Sign In</Heading>
             <InputGroup size="md" p="5">
               <Input placeholder="Email Address" _placeholder={{ color: 'purple.300' }} focusBorderColor="purple.300" name="email" value={values.email} onChange={handleChange} />
@@ -57,7 +62,7 @@ const SignIn = () => {
               </Button>
               <Divider orientation="horizontal" />
               <Button width="100%" boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" mt={5} border="solid 2px #6C63FF">
-                <Heading color="purple.300" as="h4" size="md" onClick={() => navigate('/signup')}>Join now</Heading>
+                <Heading color="purple.300" as="h4" size="md" onClick={() => history.push('/signup')}>Join now</Heading>
               </Button>
             </Box>
           </Box>

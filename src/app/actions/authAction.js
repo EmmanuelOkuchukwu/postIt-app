@@ -11,11 +11,11 @@ export const signin = (credentials) => async (dispatch) => {
       payload: user,
     })
   } catch(err) {
-    const message = (err && err.response && err.response.data && err.response.data.message) || err.message || err.toString()
+    const message = (err && err.response && err.response.data && err.response.data.msg) || err.msg || err.toString()
     console.log(message)
     dispatch({
       type: types.SIGNIN_FAILURE,
-      payload: err
+      payload: message
     })
   }
 }
