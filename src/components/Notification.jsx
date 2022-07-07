@@ -5,15 +5,13 @@ import { AlertIcon } from '@chakra-ui/react'
 
 const Notification = () => {
   const message = useSelector((msg) => msg.notification)
+  const { success } = useSelector((user) => user.auth)
   if(message === null) {
     return null
   }
   return (
     <Box p={5}>
-      <Alert status="info">
-        <AlertIcon />
-        {message}
-      </Alert>
+      {success ? <Alert status="success"><AlertIcon />{message}</Alert> : <Alert status="error"><AlertIcon />{message}</Alert>}
     </Box>
   )
 }

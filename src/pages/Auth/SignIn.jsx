@@ -1,5 +1,16 @@
 import React, { useState } from 'react'
-import { Flex, Box, Heading, Input, InputGroup, InputRightElement, Button, Divider } from '@chakra-ui/react'
+import {
+  Flex,
+  Box,
+  Heading,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Button,
+  Divider,
+  // AlertIcon,
+  // Alert
+} from '@chakra-ui/react'
 import { LockIcon } from '@chakra-ui/icons'
 import * as yup from 'yup'
 import { Formik } from 'formik'
@@ -37,6 +48,9 @@ const SignIn = () => {
     } catch(err) {
       await dispatch(setNotification(message, 5000))
     }
+  }
+  if(message === null) {
+    return null
   }
   return (
     <Formik initialValues={initialValues} validationSchema={formSchema} onSubmit={onSubmit}>

@@ -5,7 +5,8 @@ const initialState = {
   user: user ? user : null,
   error: false,
   loading: false,
-  message: ''
+  message: '',
+  success: false
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -17,12 +18,14 @@ export const authReducer = (state = initialState, action) => {
       user: payload,
       loading: false,
       error: false,
-      message: 'Signed In Successfully!'
+      message: 'Signed In Successfully!',
+      success: true
     }
   case types.SIGNIN_FAILURE:
     return {
       error: true,
-      message: payload
+      message: payload,
+      success: false
     }
   default: return state
   }
