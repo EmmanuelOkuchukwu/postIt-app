@@ -6,3 +6,15 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE'
 
 export const SET_MESSAGE = 'SET_MESSAGE'
 export const REMOVE_MESSAGE = 'REMOVE_MESSAGE'
+
+export const CREAT_POST = 'CREAT_POST'
+export const CREAT_POST_ERROR = 'CREAT_POST_ERROR'
+
+export const GET_POST = 'GET_POST'
+export const GET_POST_ERROR = 'GET_POST_ERROR'
+
+export const LIKE_POST = 'LIKE_POST'
+export const LIKE_POST_ERROR = 'LIKE_POST_ERROR'
+
+export const DELETE_POST = 'DELETE_POST'
+export const DELETE_POST_ERROR = 'DELETE_POST_ERROR'

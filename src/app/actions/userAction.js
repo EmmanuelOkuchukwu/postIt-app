@@ -11,7 +11,7 @@ export const signup = (credentials) => async (dispatch) => {
   } catch(err) {
     const message = (err && err.response && err.response.data && err.response.data.msg) || err.msg || err.toString()
     dispatch({
-      type: types.SIGNIN_FAILURE,
+      type: types.SIGNUP_FAILURE,
       payload: message
     })
   }
